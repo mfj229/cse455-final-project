@@ -1,5 +1,5 @@
 # cse455-final-project
-This is the code for CSE455 Final Project "Birds Birds Birds - Are they real?"
+This is the code for CSE455 Final Project, "Birds Birds Birds - Are they real?".
 The details of this project can be found [here](https://mfj229.github.io/cse455-final-project/).
 
 ## Preparation
