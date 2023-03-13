@@ -1,5 +1,5 @@
 # cse455-final-project
-
+## Preparation for Training
 ```Python
 import os
 import shutil
@@ -51,6 +51,7 @@ for i in range(555):
     copy(i)
 ```
 
+## Training
 ```Python
 import torch, torchvision
 from torchvision import datasets, models, transforms
@@ -181,7 +182,7 @@ torch.manual_seed(1)
 #model = models.vit_b_16(weights=torchvision.models.ViT_B_16_Weights.IMAGENET1K_SWAG_E2E_V1)
 model = models.efficientnet_v2_s(weights=torchvision.models.EfficientNet_V2_S_Weights.IMAGENET1K_V1)
 print(model)
-# 全ての層のパラメータを訓練不可に
+# Make all layer parameters untrainable
 #for param in model.parameters():
 #    param.requires_grad = False
 model.classifier[0] = nn.Dropout(0.5)
@@ -202,7 +203,7 @@ trained_model, history = train_and_validate(model, loss_func, optimizer, schedul
 # weight_decay = 0.00002, AdamW
 ```
 
-
+## Prediction
 ```Python
 import torch, torchvision
 from torchvision import datasets, models, transforms
