@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap">
+    <title>CSE455 Final Project</title>
+  </head>
+  <body>
+    <header>
+        <h1>CSE455 Final Project<br>Birds Birds Birds - Are they real?</h1>
+        <p>Mika Feng</p>
+    </header>
+
+    <section>
+      <h2>1. Problem:</h2>
+      <p>
+        The problem that I tackled is the
+        <a href=https://www.kaggle.com/competitions/birds23wi/overview>“Birds Birds Birds - Are they real?”</a>
+        on Kaggle competition.
+        I tried to achieve the highest accuracy attainable for this classification task.
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Experiments and Results:</h2>
+
+      <section>
+        <h3>2.1. Data Used:</h3>
+        <p>
+          Data from Kaggle,
+          <a href=https://www.kaggle.com/competitions/birds23wi/data>“Birds Birds Birds - Are they real?”</a>
+        </p>
+      </section>
+
+      <section>
+        <h3>2.2. Server Used:</h3>
+        <p>Google Colab Pro, GPU</p>
+      </section>
+
+      <section>
+        <h3>2.3. Techniques Used:</h3>
+
+          <section>
+            <h4>Code:</h4>
+            <p>
+              The code of my final approach can be found
+              <a href=>here</a>
+              .
+            </p>
+          </section>
+
+          <section>
+            <h4>My final approach:</h4>
+            <p>
+              I partitioned the initial training dataset into two subsets,
+              namely the "training dataset" and the "validation dataset".
+              The training dataset comprises 80% of the original training data,
+              while the validation dataset comprises the remaining 20%.
+            </p>
+            <p>
+              I performed fine-tuning on the Efficient V2 small model,
+              and modified the model's classifier by adding a dropout layer with a dropout rate of 0.5.
+              This helps to prevent overfitting and improve the model performance.
+            </p>
+            <p>
+              For training, I used cross entropy loss function,
+              Adam optimizer with initial learning rate 0.0005,
+              and a step learning rate scheduler with step size = 2 and gamma = 0.7.
+            </p>
+            <p>
+              To augment the images during training,
+              I utilized the RandomResizedCrop with scale=(0.70, 1.0)
+              and RandomHorizontalFlip transformations.
+            </p>
+            <p>
+              Using the above setting, I trained my model for 12 epochs,
+              and the training accuracy = 97.4%, validation accuracy = 87.1%,
+              testing accuracy = 86.8%. Each epoch took about 20 minutes to train.
+            </p>
+          </section>
+      </section>
+
+      <section>
+        <h3>2.4. Process and Issues:</h3>
+
+        <section>
+          <h4>Linear Probing:</h4>
+          <p>
+            At the beginning of this experiment, I tried linear probing,
+            which trains a linear classifier on top of a pre-trained neural network
+            on both Resnet50 and Resnet152 pretrained weights.
+          </p>
+          <p>
+            For Resnet50, after training 10 epochs, the training accuracy was 73.2639%,
+            the validation accuracy was 56.3595%, and each epoch took about 600s to train.
+          </p>
+          <p>
+            For Resnet152, after training 10 epochs, the training accuracy was 80.8123%,
+            the validation accuracy was 52.1619%, and each epoch took about 970s to train.
+          </p>
+          <p>
+            The training accuracy increased
+            but the validation accuracy didn't increase by increasing the layers of Resnet.
+            Also, the time for training each epoch increased by about 370s.
+            Therefore, the validation accuracy doesn't improve significantly enough
+            with the use of linear probing on Resnet152.
+          </p>
+        </section>
+
+        <section>
+          <h4>Fine-tuning:</h4>
+          <p>
+            For Resnet50, I tried not freezing the model parameters.
+            The result after training 10 epochs was training accuracy 95.5957%,
+            validation accuracy 72.9863%.
+            Therefore, fine-tuning all parameters results in significantly better validation accuracy
+            compared to linear probing.
+          </p>
+        </section>
+
+        <section>
+          <h4>Reduce overfitting:</h4>
+          <p>
+            I experimented with image augmentation and adjusted the dropout and weight decay parameters.
+            From my findings, adjusting the dropout parameter had the greatest impact.
+            However, the improvement in validation accuracy was minimal despite this.
+          </p>
+        </section>
+
+        <section>
+          <h4>Improve validation accuracy:</h4>
+          <p>
+            To improve the validation accuracy, I attempted to apply a weight sampler to the training set data loader,
+            since there might be an issue with dataset imbalance.
+            However, this approach did not lead to significant improvements in the validation accuracy.
+          </p>
+          <p>
+            Next, I attempted to fine-tune the EfficientNet B0 model, which is more efficient in training,
+            while also adjusting the dropout parameter in an effort to enhance the validation accuracy.
+            After training 16 epochs, the training accuracy was 92.62%, the validation accuracy was 81.28%,
+            the test accuracy (on Kaggle) was 80.6%.
+            Therefore, EfficientNet B0 performed better in accuracy and efficiency compared to Resnet50.
+          </p>
+          <p>
+            In order to achieve higher accuracy, I tried two other different models vit_b_16 and EfficientNet V2.
+          </p>
+          <p>
+            For vit_b_16, I used linear probing due to the high training cost.
+            After training 6 epochs, the training accuracy was 97.40%, the validation accuracy was 87.15%,
+            the test accuracy (on Kaggle) was 85.7%, and each epoch took more than 5000s to train.
+          </p>
+          <p>
+            For EfficientNet V2, I fine tuned the model based on the small pretrained weight.
+            After training 12 epochs, the training accuracy was 97.46%, the validation accuracy was 87.09%,
+            the test accuracy (on Kaggle) was 86.8%, and each epoch took about 1200s to train.
+          </p>
+        </section>
+
+      </section>
+
+      <h2>3. Discussion:</h2>
+      <section>
+        <h3>3.1. What I found out throughout my experiment:</h3>
+      </section>
+
+      <section>
+        <h3>3.2. Problem:</h3>
+        <p>
+          The computing power of google colab pro GPU is not enough.
+          For example, vit_b_16 is a good model but it costs too much computing power to train,
+          and EfficientNet V2 M needs more GPU memory to train.
+        </p>
+        <p>
+          Training data needs more image augmentation,
+          since the number of images differs by the species of birds.
+        </p>
+      </section>
+
+      <section>
+        <h3>3.3. Next Steps:</h3>
+        <p>
+          Use a server with more memory and try the other pretrained models whose accuracy is beyond 86%,
+          which is my highest test accuracy.
+        </p>
+        <p>
+          Consider additional methods of image augmentation to further enhance accuracy.
+        </p>
+      </section>
+
+      <section>
+        <h3>3.4. How my approach differs from others:</h3>
+        <p>
+          I added a dropout layer to the model's classifier to reduce overfitting.
+        </p>
+        <p>
+          Also, I perform fine-tuning on the pre-trained EfficientNet V2 model
+          which is efficient and has a higher accuracy.
+        </p>
+      </section>
+    </section>
+  </body>
+</html>
