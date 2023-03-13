@@ -45,7 +45,7 @@
             <h4>Code</h4>
             <p>
               The code of my final approach can be found
-              <a href=>here</a>
+              <a href=https://github.com/mfj229/cse455-final-project>here</a>
               .
             </p>
           </section>
@@ -77,7 +77,9 @@
               Using the above setting, I trained my model for 12 epochs,
               and the training accuracy = 97.4%, validation accuracy = 87.1%,
               testing accuracy = 86.8%. Each epoch took about 20 minutes to train.
+              The graph below is the transition of training and validation accuracy.
             </p>
+            <img src="accuracy_curve.png" alt="The accuracy of my model.">
           </section>
       </section>
 
@@ -161,11 +163,7 @@
 
       <h2>3. Discussion</h2>
       <section>
-        <h3>3.1. What I found out throughout my experiment</h3>
-      </section>
-
-      <section>
-        <h3>3.2. Problem</h3>
+        <h3>3.1. Problem</h3>
         <p>
           The computing power of google colab pro GPU is not enough.
           For example, vit_b_16 is a good model but it costs too much computing power to train,
@@ -178,7 +176,7 @@
       </section>
 
       <section>
-        <h3>3.3. Next Steps</h3>
+        <h3>3.2. Next Steps</h3>
         <p>
           Use a server with more memory and try the other pretrained models whose accuracy is beyond 86%,
           which is my highest test accuracy.
@@ -189,7 +187,7 @@
       </section>
 
       <section>
-        <h3>3.4. How my approach differs from others</h3>
+        <h3>3.3. How my approach differs from others</h3>
         <p>
           I added a dropout layer to the model's classifier to reduce overfitting.
         </p>
@@ -198,6 +196,26 @@
           which is efficient and has a higher accuracy.
         </p>
       </section>
+    </section>
+
+    <section>
+      <h2>4. Previous Work</h2>
+      <ul>
+        <li><a href="https://learnopencv.com/image-classification-using-transfer-learning-in-pytorch/">
+              Pytorch Image Classification using Transfer Learning</a></li>
+        <li><a href="https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_v2_s.html">
+              EFFICIENTNET_V2_S</a></li>
+        <li><a href="https://qiita.com/omiita/items/1d96eae2b15e49235110">
+              Will you be the strongest in 2021!? ? Explanation of the latest image recognition model EfficientNetV2</a></li>
+        <li><a href="https://towardsdatascience.com/a-visual-guide-to-learning-rate-schedulers-in-pytorch-24bbb262c863#eec7">
+              A Visual Guide to Learning Rate Schedulers in PyTorch</a></li>
+        <li><a href="https://towardsdatascience.com/improves-cnn-performance-by-applying-data-transformation-bf86b3f4cef4">
+              Do and don’t when using transformation to improve CNN deep learning model</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Project Presentation Video</h2>
     </section>
   </body>
 </html>
