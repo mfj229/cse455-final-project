@@ -1,5 +1,5 @@
 # cse455-final-project
-## Preparation for Training
+## Preparation
 ```Python
 import os
 import shutil
